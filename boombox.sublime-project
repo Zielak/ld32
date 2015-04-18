@@ -1,0 +1,14 @@
+{
+	"flow_file": "C:\\Dev\\LDJAM\\32 Boombox\\project.flow",
+	"folders":
+	[
+		{
+			"folder_exclude_patterns":
+			[
+				"bin"
+			],
+			"follow_symlinks": true,
+			"path": "."
+		}
+	]
+}

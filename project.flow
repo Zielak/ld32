@@ -1,0 +1,36 @@
+{
+
+  luxe:{
+    window: {
+      width:900,
+      height:600,
+      title:'Boombox',
+      fullscreen:false,
+      resizable:true,
+      borderless:false
+    }
+  },
+
+  project : {
+    name : 'Boombox',
+    version : '0.0.1',
+    author : 'Darek Greenly',
+
+    app : {
+      name : 'boombox',
+      package : 'com.darekgreenly.boombox'
+    },
+
+    build : {
+      dependencies : {
+        luxe : '*',
+      }
+    },
+
+    files : {
+      assets : 'assets/'
+    }
+
+  }
+
+}
