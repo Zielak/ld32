@@ -1,0 +1,11 @@
+{
+    "textures" : [
+        { "id" : "assets/people.png" },
+        { "id" : "assets/player.png" },
+        { "id" : "assets/icons.png" }
+    ],
+    "json" : [
+        { "id" : "assets/playeranim.json" },
+        { "id" : "assets/peopleanim.json" }
+    ]
+}

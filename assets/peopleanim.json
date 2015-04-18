@@ -1,0 +1,38 @@
+{
+    "still" : {
+        "frame_size":{ "x":"16", "y":"16" },
+        "frameset": ["1-4"],
+        "loop": "false",
+        "speed": "8"
+    },
+    "dance1" : {
+        "frame_size":{ "x":"16", "y":"16" },
+        "frameset": ["6", "5", "hold 2", "6-8", "hold 2", "7"],
+        "loop": "true",
+        "speed": "20"
+    },
+    "dance2" : {
+        "frame_size":{ "x":"16", "y":"16" },
+        "frameset": ["9", "hold 2", "10-12", "hold 1", "11", "10"],
+        "loop": "true",
+        "speed": "18"
+    },
+    "dance3" : {
+        "frame_size":{ "x":"16", "y":"16" },
+        "frameset": ["13-16"],
+        "loop": "true",
+        "speed": "8"
+    },
+    "dance4" : {
+        "frame_size":{ "x":"16", "y":"16" },
+        "frameset": ["17-20"],
+        "loop": "true",
+        "speed": "8"
+    },
+    "dead" : {
+        "frame_size":{ "x":"16", "y":"16" },
+        "frameset": ["21-24"],
+        "loop": "false",
+        "speed": "8"
+    }
+}

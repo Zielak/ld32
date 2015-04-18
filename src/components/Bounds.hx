@@ -1,31 +1,34 @@
 package components;
 
-import luxe.Component;
+import components.Mover;
 import luxe.Rectangle;
 
-class Bounds extends Component{
+class Bounds extends Mover{
 
 
-    public var bounds           :Rectangle;
+    public var bounds:Rectangle;
 
     override function init()
     {
-        bounds = new Rectangle(0,0,Luxe.screen.w,Luxe.screen.h);
-
+        bounds = new Rectangle(0, 0, Director.bounds.w, Director.bounds.h);
     }
 
     override function onfixedupdate(dt:Float)
     {
-        if(entity.pos.x < bounds.x){
-            entity.pos.x = bounds.x;
-        }else if(entity.pos.x > bounds.x+bounds.w){
-            entity.pos.x = bounds.x+bounds.w;
+        if(actor.realPos.x < bounds.x){
+            trace('bounds - left');
+            actor.realPos.x = bounds.x;
+        }else if(actor.realPos.x > bounds.x+bounds.w){
+            trace('bounds - right');
+            actor.realPos.x = bounds.x+bounds.w;
         }
 
-        if(entity.pos.y < bounds.y){
-            entity.pos.y = bounds.y;
-        }else if(entity.pos.y > bounds.y+bounds.h){
-            entity.pos.y = bounds.y+bounds.h;
+        if(actor.realPos.y < bounds.y){
+            trace('bounds - top');
+            actor.realPos.y = bounds.y;
+        }else if(actor.realPos.y > bounds.y+bounds.h){
+            trace('bounds - bottom');
+            actor.realPos.y = bounds.y+bounds.h;
         }
     }
 
