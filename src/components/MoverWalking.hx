@@ -6,7 +6,7 @@ import luxe.options.ComponentOptions;
 class MoverWalking extends Mover{
 
         // speeds
-    var maxWalkSpeed:Float = 110;
+    public var maxWalkSpeed:Float = 110;
     var accel_rate:Float = 5;
     var decel_rate:Float = 25;
 

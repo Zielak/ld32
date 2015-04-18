@@ -23,6 +23,8 @@ class Main extends luxe.Game {
 
     override function ready() {
 
+        Luxe.renderer.clear_color = new Color(0, 0, 0, 1);
+
         people = new Scene('people');
         
         //fetch a list of assets to load from the json file
@@ -98,6 +100,7 @@ class Main extends luxe.Game {
         player.add(new components.InputPlayer({name: 'input'}));
         player.add(new components.MoverWalking({name: 'walking'}));
         player.add(new components.Bounds({name: 'bounds'}));
+        player.add(new components.Shooting({name: 'shooting'}));
 
         var anim_object = Luxe.loadJSON('assets/playeranim.json');
 
@@ -123,7 +126,7 @@ class Main extends luxe.Game {
         var _x:Float;
         var _y:Float;
 
-        for(i in 0...50){
+        for(i in 0...30){
             _x = Maths.random_float(32, Director.bounds.w-32);
             _y = Maths.random_float(32, Director.bounds.h-32);
 
@@ -143,8 +146,9 @@ class Main extends luxe.Game {
             scene: people,
         });
 
-        // manadd(new components.InputPlayer({name: 'input'}));
-        man.add(new components.MoverWalking({name: 'walking', maxWalkSpeed: 30}));
+        man.add(new components.InputAI({name: 'input'}));
+        man.add(new components.AIController({name: 'controller'}));
+        man.add(new components.MoverWalking({name: 'walking', maxWalkSpeed: Maths.random_float(5,30)}));
         man.add(new components.Bounds({name: 'bounds'}));
         man.add(new components.Feelings({name: 'feelings'}));
 

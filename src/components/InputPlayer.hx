@@ -20,11 +20,24 @@ class InputPlayer extends Component
     @:isVar public var b        (default, null):Bool;
 
     @:isVar public var angle        (default, null):Float;
+    @:isVar public var mouseAngle   (default, null):Float;
+
     @:isVar public var movePressed  (default, null):Bool;
+
+    var screen_mouse:Vector;
+    var world_mouse:Vector;
+    var view_mouse:Vector;
+    var _vec:Vector;
 
     override function init():Void
     {
         angle = 0;
+        mouseAngle = 0;
+
+        screen_mouse = new Vector();
+        world_mouse = new Vector();
+        view_mouse = new Vector();
+        _vec = new Vector();
 
         Luxe.input.bind_key('up', Key.key_w);
         Luxe.input.bind_key('down', Key.key_s);
@@ -88,6 +101,28 @@ class InputPlayer extends Component
             else if ( right )
                 angle = 0;
         }
+    }
+
+    function updateMouse()
+    {
+        
+    }
+
+
+    override function onmousemove( e:MouseEvent )
+    {
+        // trace('moved');
+
+        screen_mouse = e.pos;
+        // trace('screen_mouse: ${screen_mouse}');
+        world_mouse = Luxe.camera.screen_point_to_world( e.pos );
+        // trace('world_mouse: ${world_mouse}');
+
+        _vec = Vector.Subtract(world_mouse, entity.pos);
+        mouseAngle = _vec.angle2D;
+        // trace('mouseAngle: ${mouseAngle}');
+        // trace('=====================================================');
+
     }
 
 }

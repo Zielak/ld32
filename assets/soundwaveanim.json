@@ -1,0 +1,8 @@
+{
+    "fly" : {
+        "frame_size":{ "x":"16", "y":"16" },
+        "frameset": ["1-4"],
+        "loop": "true",
+        "speed": "15"
+    }
+}

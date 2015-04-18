@@ -1,6 +1,7 @@
 
 package ;
 
+import luxe.Input;
 import luxe.Sprite;
 import luxe.Visual;
 import luxe.Color;
@@ -11,7 +12,6 @@ class Actor extends Sprite
 {
 
     public var velocity         :Vector;
-    public var speed(get, set)  :Float;
     public var realPos          :Vector;
 
     override function init():Void
@@ -19,7 +19,6 @@ class Actor extends Sprite
         fixed_rate = 1/60;
 
         velocity = new Vector();
-
         realPos = new Vector();
         realPos.copy_from(pos);
     }
@@ -48,16 +47,15 @@ class Actor extends Sprite
         this.depth = realPos.y;
     }
 
+    // override function onmousemove( e:MouseEvent )
+    // {
+    //     if(has('input')){
 
+    //         if(Reflect.hasField(get('input'), 'onmousemove')){
+    //             get('input').onmousemove(e);
+    //         }
+    //     }
+    // }
 
-    public function get_speed():Float
-    {
-        return velocity.length;
-    }
-    public function set_speed(v:Float):Float
-    {
-        velocity.length = v;
-        return velocity.length;
-    }
 
 }

@@ -9,6 +9,7 @@ class Feelings extends Component{
 
     public static inline var HAPPY_MIN:Float = 1;
     public static inline var HAPPY_MAX:Float = 20;
+    public static inline var HAPPY_DANCING:Float = 100;
 
     public static inline var DEATH_FRAME1:Int = 20;
     public static inline var DEATH_FRAME4:Int = 23;
@@ -22,15 +23,25 @@ class Feelings extends Component{
     var anim:SpriteAnimation;
     var danceNames:Array<String>;
 
+    var actor:Actor;
+
     override function init()
     {
+        actor = cast entity;
+
         danceNames = ['dance1', 'dance2', 'dance3', 'dance4'];
 
         anim = get('anim');
         anim.animation = 'still';
-        anim.play();
-        anim.set_frame( Maths.random_int(1,4) );
-        anim.stop();
+        var _frame = Maths.random_int(0,3);
+        actor.geometry_quad.uv(new Rectangle(16*_frame,0,16,16));
+
+        if(_frame == 2){
+            Luxe.timer.schedule(1, function(){
+                var _mover:MoverWalking = cast get('walking');
+                _mover.maxWalkSpeed = 1;
+            });
+        }
 
         happy = Maths.random_float(HAPPY_MIN, HAPPY_MAX);
         dancing = false;
@@ -48,6 +59,11 @@ class Feelings extends Component{
             }
         }
 
+        if(happy >= HAPPY_DANCING)
+        {
+            startDancing();
+        }
+
         
 
         if(anim==null){
@@ -58,6 +74,14 @@ class Feelings extends Component{
             // updateAnims();
         }
 
+    }
+
+    function startDancing()
+    {
+        dancing = true;
+
+        anim.animation = danceNames[Maths.random_int(0,danceNames.length-1)];
+        anim.play();
     }
 
 
