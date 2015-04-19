@@ -4,14 +4,21 @@
         { "id" : "assets/player.png" },
         { "id" : "assets/icons.png" },
         { "id" : "assets/notes.png" },
-        { "id" : "assets/soundwave.png" }
+        { "id" : "assets/soundwave.png" },
+        { "id" : "assets/screen_logo.png" },
+        { "id" : "assets/screen_start.png" },
+        { "id" : "assets/screen_over.png" }
+    ],
+    "sounds" : [
+        { "id" : "assets/sounds/dead.wav", "name" : "dead", "is_stream" : false },
+        { "id" : "assets/sounds/shoot_note.wav", "name" : "shoot_note", "is_stream" : false },
+        { "id" : "assets/sounds/dance.wav", "name" : "dance", "is_stream" : false },
+        { "id" : "assets/sounds/nextlevel.wav", "name" : "nextlevel", "is_stream" : false },
+        { "id" : "assets/music/boomboxmusic.ogg", "name" : "music", "is_stream" : false }
     ],
     "json" : [
         { "id" : "assets/peopleanim.json" },
         { "id" : "assets/playeranim.json" },
         { "id" : "assets/soundwaveanim.json" }
-    ],
-    "sounds" : [
-        { "id" : "assets/music/boomboxmusic.ogg", "name" : "music" }
     ]
 }

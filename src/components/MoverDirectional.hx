@@ -17,10 +17,10 @@ class MoverDirectional extends Mover{
     {
         super(_options);
 
-        if(_options.moveSpeed != null){
+        if( Reflect.hasField(_options, 'moveSpeed') ){
             moveSpeed = _options.moveSpeed;
         }
-        if(_options.angle != null){
+        if( Reflect.hasField(_options, 'angle') ){
             angle = _options.angle;
         }
         if(_options.velocity != null){

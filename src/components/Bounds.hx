@@ -23,7 +23,7 @@ class Bounds extends Mover{
         if(_options.bounds != null){
             bounds = _options.bounds;
         }else{
-            bounds = new Rectangle(0, 0, Director.bounds.w, Director.bounds.h);
+            bounds = new Rectangle(0, 0, Game.bounds.w, Game.bounds.h);
         }
     }
 

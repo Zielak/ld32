@@ -6,7 +6,7 @@
       height:600,
       title:'Boombox',
       fullscreen:false,
-      resizable:true,
+      resizable:false,
       borderless:false
     }
   },

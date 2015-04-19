@@ -3,14 +3,15 @@ package components;
 import components.Collider.ColliderEvent;
 import luxe.Component;
 import luxe.Rectangle;
+import luxe.Sound;
 import luxe.utils.Maths;
 import luxe.components.sprite.SpriteAnimation;
 
 class Feelings extends Component{
 
-    public static inline var HAPPY_MIN:Float = 3;
-    public static inline var HAPPY_MAX:Float = 9;
-    public static inline var HAPPY_DANCING:Float = 10;
+    public static inline var HAPPY_MIN:Float = 4;
+    public static inline var HAPPY_MAX:Float = 15;
+    public static inline var HAPPY_DANCING:Float = 20;
 
     public static inline var DEATH_FRAME1:Int = 20;
     public static inline var DEATH_FRAME4:Int = 23;
@@ -25,9 +26,13 @@ class Feelings extends Component{
     var danceNames:Array<String>;
 
     var actor:Actor;
+    var deadSound:Sound;
+    var danceSound:Sound;
+
 
     override function init()
     {
+        // trace('init');
         actor = cast entity;
 
         danceNames = ['dance1', 'dance2', 'dance3', 'dance4'];
@@ -54,6 +59,23 @@ class Feelings extends Component{
                 startDancing();
             }
         });
+
+
+        // trace('init, loading sounds');
+        Luxe.audio.on("dead", "load", function(e){
+            deadSound = e;
+            deadSound.volume = 0.45;
+        });
+        Luxe.audio.on("dance", "load", function(e){
+            danceSound = e;
+            danceSound.volume = 0.2;
+        });
+    }
+
+    override function onremoved()
+    {
+        deadSound = null;
+        danceSound = null;
     }
 
     override function onfixedupdate(dt:Float)
@@ -87,11 +109,14 @@ class Feelings extends Component{
 
     function startDancing()
     {
+        danceSound.play();
+        danceSound.pitch = Maths.random_float(0.8,1.2);
 
         anim.animation = danceNames[Maths.random_int(0,danceNames.length-1)];
         anim.play();
         anim.frame = Maths.random_int(0,3);
 
+        Luxe.events.fire('people.happy', this);
         actor.events.fire('startDancing');
 
         remove('collider');
@@ -102,19 +127,12 @@ class Feelings extends Component{
 
     function suicide()
     {
-        Luxe.events.fire('people.death', this);
-
+        deadSound.play();
+        deadSound.pitch = Maths.random_float(0.8,1.2);
 
         dead = true;
-
-        // anim.animation = 'dead';
-        // anim.play();
-
-        // anim.animation = 'dead';
         var _frame = Maths.random_int(0,3);
         actor.geometry_quad.uv(new Rectangle(16*_frame,5*16,16,16));
-        // anim.set_frame(Maths.random_int(ń1, 4));
-
 
         // remove components
         remove('input');
@@ -124,6 +142,7 @@ class Feelings extends Component{
 
         actor.velocity.set_xy(0,0);
 
+        Luxe.events.fire('people.death', this);
         actor.events.fire('death');
     }
 

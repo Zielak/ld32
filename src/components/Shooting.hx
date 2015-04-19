@@ -8,6 +8,7 @@ import luxe.Component;
 import luxe.components.sprite.SpriteAnimation;
 import luxe.Rectangle;
 import luxe.resource.Resource;
+import luxe.Sound;
 import luxe.Sprite;
 import luxe.utils.Maths;
 import luxe.Vector;
@@ -22,17 +23,24 @@ class Shooting extends Component
     var input:InputPlayer;
     var actor:Actor;
 
+    var shootSound:Sound;
+
     var anim_object:JSONResource;
 
     override function init()
     {
         actor = cast entity;
 
-        anim_object = Luxe.loadJSON('assets/soundwaveanim.json');
+        // anim_object = Luxe.loadJSON('assets/soundwaveanim.json');
 
         input = get('input');
 
         cooldown = maxcooldown;
+
+        Luxe.audio.on("shoot_note", "load", function(e){
+            shootSound = e;
+            shootSound.volume = 0.3;
+        });
     }
 
     override function onfixedupdate(dt:Float)
@@ -77,13 +85,17 @@ class Shooting extends Component
         }));
         bullet.add(new components.Collider({
             name: 'collider',
-            shape: Polygon.rectangle(0, 0, 16,16, true),
+            shape: Polygon.rectangle(0, 0, 10,10, true),
             testAgainst: 'man',
             name_actor: 'bullet',
         }));
 
         bullet.add(new components.RemoveAfter({name: 'removeafter', time: 0.5}));
         
+
+        // Luxe.audio.pitch('shoot_note', Maths.random_float(0.7,1.2));
+        shootSound.play();
+        shootSound.pitch = Maths.random_float(0.7,1.2);
 
         // var anim = bullet.add( new SpriteAnimation({ name:'anim' }) );
         // anim.add_from_json_object( anim_object.json );

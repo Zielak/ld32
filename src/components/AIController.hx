@@ -23,8 +23,9 @@ class AIController extends Component
         m_tree = new BehaviorTree();
 
         seqSad = new Sequence();
-        seqSad.add(new behaviors.Wait({time: 3, randomizeTime: 2}));
+        seqSad.add(new behaviors.Wait({time: 0.5, randomizeTime: 0.5}));
         seqSad.add(new behaviors.MoveInRandomDirection({time: 1, randomizeTime: 1}));
+        seqSad.add(new behaviors.Wait({time: 0.5, randomizeTime: 1}));
 
         seqDance = new Sequence();
         seqDance.add(new behaviors.MoveInRandomDirection({time: 1, randomizeTime: 0}));

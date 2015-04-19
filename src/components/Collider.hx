@@ -38,7 +38,7 @@ class Collider extends Component
 
     override function init()
     {
-        testArea = new Rectangle(0,0,Director.bounds.w/8, Director.bounds.h/8);
+        testArea = new Rectangle(0,0,Game.bounds.w/8, Game.bounds.h/8);
         actor = cast entity;
         _arr = new Array<Entity>();
     }
