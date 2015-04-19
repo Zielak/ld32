@@ -1,5 +1,6 @@
 package components;
 
+import components.Collider.ColliderEvent;
 import luxe.Component;
 import luxe.Rectangle;
 import luxe.utils.Maths;
@@ -7,9 +8,9 @@ import luxe.components.sprite.SpriteAnimation;
 
 class Feelings extends Component{
 
-    public static inline var HAPPY_MIN:Float = 1;
-    public static inline var HAPPY_MAX:Float = 20;
-    public static inline var HAPPY_DANCING:Float = 100;
+    public static inline var HAPPY_MIN:Float = 3;
+    public static inline var HAPPY_MAX:Float = 9;
+    public static inline var HAPPY_DANCING:Float = 10;
 
     public static inline var DEATH_FRAME1:Int = 20;
     public static inline var DEATH_FRAME4:Int = 23;
@@ -45,6 +46,14 @@ class Feelings extends Component{
 
         happy = Maths.random_float(HAPPY_MIN, HAPPY_MAX);
         dancing = false;
+        dead = false;
+
+
+        entity.events.listen('collider.hit', function(e:ColliderEvent){
+            if(e.name_actor == 'bullet' && !dancing){
+                startDancing();
+            }
+        });
     }
 
     override function onfixedupdate(dt:Float)
@@ -59,7 +68,7 @@ class Feelings extends Component{
             }
         }
 
-        if(happy >= HAPPY_DANCING)
+        if(happy >= HAPPY_DANCING && !dancing)
         {
             startDancing();
         }
@@ -78,10 +87,16 @@ class Feelings extends Component{
 
     function startDancing()
     {
-        dancing = true;
 
         anim.animation = danceNames[Maths.random_int(0,danceNames.length-1)];
         anim.play();
+        anim.frame = Maths.random_int(0,3);
+
+        actor.events.fire('startDancing');
+
+        remove('collider');
+
+        dancing = true;
     }
 
 
@@ -89,15 +104,27 @@ class Feelings extends Component{
     {
         Luxe.events.fire('people.death', this);
 
+
         dead = true;
 
         // anim.animation = 'dead';
         // anim.play();
 
-        anim.stop();
-        anim.animation = 'dead';
-        anim.frame = Maths.random_int(1, 4);
-        // anim.set_frame(Maths.random_int(1, 4));
+        // anim.animation = 'dead';
+        var _frame = Maths.random_int(0,3);
+        actor.geometry_quad.uv(new Rectangle(16*_frame,5*16,16,16));
+        // anim.set_frame(Maths.random_int(ń1, 4));
+
+
+        // remove components
+        remove('input');
+        remove('controller');
+        remove('collider');
+        remove('walking');
+
+        actor.velocity.set_xy(0,0);
+
+        actor.events.fire('death');
     }
 
 }

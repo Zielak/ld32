@@ -9,6 +9,7 @@ class Director extends Entity
     static public var bounds:Rectangle;
 
 
+
     static public function init_director()
     {
 

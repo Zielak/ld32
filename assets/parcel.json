@@ -3,11 +3,15 @@
         { "id" : "assets/people.png" },
         { "id" : "assets/player.png" },
         { "id" : "assets/icons.png" },
+        { "id" : "assets/notes.png" },
         { "id" : "assets/soundwave.png" }
     ],
     "json" : [
-        { "id" : "assets/playeranim.json" },
         { "id" : "assets/peopleanim.json" },
+        { "id" : "assets/playeranim.json" },
         { "id" : "assets/soundwaveanim.json" }
+    ],
+    "sounds" : [
+        { "id" : "assets/music/boomboxmusic.ogg", "name" : "music" }
     ]
 }

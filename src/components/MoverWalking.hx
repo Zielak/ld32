@@ -23,9 +23,16 @@ class MoverWalking extends Mover{
 
     }
 
+    
+
     override function init()
     {
-        
+        entity.events.listen('startDancing', function(_){
+            this.maxWalkSpeed = 3;
+        });
+        entity.events.listen('death', function(_){
+            this.maxWalkSpeed = 0;
+        });
     }
 
     override function onfixedupdate(dt:Float)

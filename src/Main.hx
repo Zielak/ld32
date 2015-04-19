@@ -1,13 +1,15 @@
 
-import luxe.Input;
-import luxe.Scene;
-import luxe.utils.Maths;
-import luxe.Vector;
-import phoenix.Texture;
-import luxe.Parcel;
-import luxe.ParcelProgress;
 import luxe.Color;
 import luxe.components.sprite.SpriteAnimation;
+import luxe.Input;
+import luxe.Parcel;
+import luxe.ParcelProgress;
+import luxe.Scene;
+import luxe.Sound;
+import luxe.utils.Maths;
+import luxe.Vector;
+import luxe.resource.Resource;
+import phoenix.Texture;
 
 class Main extends luxe.Game {
 
@@ -16,16 +18,18 @@ class Main extends luxe.Game {
     var player:Actor;
     var playerImage:Texture;
 
-    var people:Scene;
+    // var people:Scene;
     var peopleImage:Texture;
 
+
+    var music:Sound;
     
 
     override function ready() {
 
         Luxe.renderer.clear_color = new Color(0, 0, 0, 1);
 
-        people = new Scene('people');
+        // people = new Scene('people');
         
         //fetch a list of assets to load from the json file
         Luxe.loadJSON('assets/parcel.json', function(json_asset) {
@@ -59,6 +63,34 @@ class Main extends luxe.Game {
     } //onkeyup
 
 
+    override function onkeydown( e:KeyEvent ) {
+        if(e.keycode == Key.key_p
+        || e.keycode == Key.kp_plus
+        || e.keycode == Key.equals
+        || e.keycode == Key.kp_backspace){
+            trace('Key.plus');
+            if(music.volume < 0.9){
+                music.volume += 0.5;
+            }
+        }
+        if(e.keycode == Key.key_o
+        || e.keycode == Key.minus
+        || e.keycode == Key.kp_minus
+        || e.keycode == Key.kp_b ){
+            trace('Key.minus');
+            if(music.volume > 0.1){
+                music.volume -= 0.5;
+            }
+        }
+        trace('Key.kp_backspace = ${Key.kp_backspace}');
+        trace('Key.kp_b = ${Key.kp_b}');
+        trace('e.keycode = ${e.keycode}');
+        trace('music.volume: ${music.volume}');
+    }
+
+
+
+
     function assets_loaded(_) {
 
         Director.init_director();
@@ -68,6 +100,8 @@ class Main extends luxe.Game {
         create_hud();
         create_player();
         create_people();
+
+        play_music();
 
 
     } //assets_loaded
@@ -126,7 +160,7 @@ class Main extends luxe.Game {
         var _x:Float;
         var _y:Float;
 
-        for(i in 0...30){
+        for(i in 0...50){
             _x = Maths.random_float(32, Director.bounds.w-32);
             _y = Maths.random_float(32, Director.bounds.h-32);
 
@@ -143,13 +177,18 @@ class Main extends luxe.Game {
             texture: peopleImage,
             pos: _pos,
             size: new Vector(16,16),
-            scene: people,
+            // scene: people,
         });
 
         man.add(new components.InputAI({name: 'input'}));
         man.add(new components.AIController({name: 'controller'}));
         man.add(new components.MoverWalking({name: 'walking', maxWalkSpeed: Maths.random_float(5,30)}));
         man.add(new components.Bounds({name: 'bounds'}));
+        man.add(new components.Collider({
+            name: 'collider',
+            name_actor: 'man',
+            shape: luxe.collision.shapes.Polygon.rectangle(0,0,16,16,true)
+        }));
         man.add(new components.Feelings({name: 'feelings'}));
 
         var anim_object = Luxe.loadJSON('assets/peopleanim.json');
@@ -159,6 +198,17 @@ class Main extends luxe.Game {
 
             //create the animations from the json
         anim.add_from_json_object( anim_object.json );
+    }
+
+
+
+
+    function play_music()
+    {
+        Luxe.audio.create("assets/music/boomboxmusic.ogg", 'music', true).then(function(sound:Sound) {
+            music = sound;
+            music.loop();
+        });
     }
 
 

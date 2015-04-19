@@ -30,7 +30,7 @@ class MoverDirectional extends Mover{
 
     override function init()
     {
-        actor.rotation_z = angle;
+        
     }
 
     override function onfixedupdate(dt:Float)

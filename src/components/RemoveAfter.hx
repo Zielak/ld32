@@ -16,12 +16,12 @@ class RemoveAfter extends luxe.Component
 
     override function onfixedupdate(dt:Float)
     {
-        trace('update()');
+        // trace('update()');
         time -= dt;
 
         if(time <= 0){
-            entity.destroy(true);
-            trace('destroy(true)');
+            entity.destroy();
+            // trace('destroy()');
         }
     }
 

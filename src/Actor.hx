@@ -25,6 +25,7 @@ class Actor extends Sprite
 
     override function ondestroy():Void
     {
+        super.ondestroy();
         realPos = null;
         velocity = null;
     }
@@ -44,7 +45,7 @@ class Actor extends Sprite
         realPos.x += velocity.x * dt;
         realPos.y += velocity.y * dt;
         
-        this.depth = realPos.y;
+        // depth = realPos.y;
     }
 
     // override function onmousemove( e:MouseEvent )

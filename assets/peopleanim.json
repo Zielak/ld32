@@ -19,15 +19,15 @@
     },
     "dance3" : {
         "frame_size":{ "x":"16", "y":"16" },
-        "frameset": ["13-16"],
+        "frameset": ["13", "hold 1", "14-16", "hold 1", "15", "14" ],
         "loop": "true",
-        "speed": "8"
+        "speed": "16"
     },
     "dance4" : {
         "frame_size":{ "x":"16", "y":"16" },
-        "frameset": ["17-20"],
+        "frameset": ["17-19", "20", "hold 2", "19", "18", "17", "hold 1"],
         "loop": "true",
-        "speed": "8"
+        "speed": "20"
     },
     "dead" : {
         "frame_size":{ "x":"16", "y":"16" },
